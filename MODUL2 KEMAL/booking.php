@@ -57,7 +57,7 @@
                 <input type="hidden" name="buildingtype" value="Garuda Hall">
                 </select>';
             $image_selected = $img_src[1];
-        }else if ($gedung3){
+        }else ($gedung3){
             $method_selected = '
                 <select class="custom-select" name="buildingtype" disabled>
                 <option value="Gedung Serba Guna">Gedung Serba Guna</option>

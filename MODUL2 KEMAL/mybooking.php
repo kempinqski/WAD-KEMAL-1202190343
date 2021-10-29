@@ -32,7 +32,7 @@
 
     <?php
         $book_num = rand();
-        $name = $_POST['name'];
+        $name = $_GET['name'];
         $checkin = $_POST['eventdate'];
         $checkin_dsply = '';
         $duration = $_POST['duration'];
@@ -49,7 +49,7 @@
         }
 
 
-        if($buildingtype == 'Nusantara Hall'){
+        if($bulidingtype == 'Nusantara Hall'){
             $total_price = $duration*2000;
         } else if($buildingtype == 'Garuda Hall'){
             $total_price = $duration*1000;
