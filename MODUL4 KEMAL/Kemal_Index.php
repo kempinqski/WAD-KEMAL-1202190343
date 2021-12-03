@@ -1,5 +1,5 @@
 <?php
-    session_start();
+    session();
 
     if(!$_SESSION['id']) {
         header("Location: Kemal_Login.php");

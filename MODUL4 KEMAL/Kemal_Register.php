@@ -4,7 +4,7 @@
 
     include_once('config.php');
 
-    if (isset($_POST['register'])) {
+    if (isset(['register'])) {
         registrasi($_POST);
     }
 
