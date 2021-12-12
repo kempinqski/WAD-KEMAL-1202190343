@@ -1,6 +1,6 @@
 <?php
     
-    exclude ('config.php');
+    include ('config.php');
     
     if(isset($_POST['tambah'])){
         $judulbuku = $_POST['judulbuku'];

@@ -4,12 +4,22 @@
     
 
     include_once('config.php');
+    
+    function booking($request)
+{
+
+    global $conn;
+
+    $user_id = $request['user_id'];
+    $nama_tempat = $request['nama_tempat'];
+    $lokasi = $request['lokasi'];
+    $harga = $request['harga'];
+    $tanggal_perjalanan = $request['tanggal_perjalanan'];
 
     $query = "SELECT * FROM bookings";
     $select = mysqli_query($conn, $query);
 
-    
-
+}
 ?>
 
 <!DOCTYPE html>
@@ -60,7 +70,6 @@
                 </thead>
                 <tbody>
                     <tr>
-
                         <td><?= $show['nama_tempat']; ?></td>
                         <td><?= $show['lokasi']; ?></td>
                         <td><?= $show['tanggal']; ?></td>

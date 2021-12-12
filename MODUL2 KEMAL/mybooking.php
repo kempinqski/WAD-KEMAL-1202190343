@@ -32,15 +32,13 @@
 
     <?php
         $book_num = rand();
-        $name = $_GET['name'];
+        $name = $_POST['name'];
         $checkin = $_POST['eventdate'];
         $checkin_dsply = '';
         $duration = $_POST['duration'];
         $checkout = '';
         $buildingtype = $_POST['buildingtype'];
         $phone = $_POST['phone_num'];
-        $service = $_POST['service'];
-        $service_dsply = 'No Service';
         $total_price = 0;
 
         if(!empty($checkin)){
@@ -49,12 +47,20 @@
         }
 
 
-        if($bulidingtype == 'Nusantara Hall'){
-            $total_price = $duration*2000;
-        } else if($buildingtype == 'Garuda Hall'){
-            $total_price = $duration*1000;
-        } else if($buildingtype == 'Gedung Serba Guna'){
-            $total_price = $duration*500;
+        if(isset($_GET['service'])){
+            $service = $_GET['service'];
+        }else{
+            $service = NULL;
+        }
+        $catering = 700;
+        $decoration = 450;
+        $sound = 250;
+        if($buildingtype == "Nusantara Hall"){
+            $harga = 2000;
+        } else if($buildingtype == "Garuda Hall"){
+            $harga = 1000;
+        } else {
+            $harga = 500;
         }
 
     ?>
@@ -86,17 +92,38 @@
                         <td><?= $buildingtype?></td>
                         <td><?= $phone?></td>
                         <td>
-                            <ul>
-                                <?=$service_dsply?>
-                            </ul>
+                            <?php 
+                            
+                            if (is_null($service)){
+                                echo "No Service";
+                            }else{
+                                echo "<ul>";
+                                foreach($service as $serv){
+                                    if($serv == "Catering"){
+                                        $total_price = $total_price+$catering;
+                                        echo "<li>".$serv."</li>";
+                                    }else if($serv == "Decoration"){
+                                        $total_price = $total_price+$decoration;
+                                        echo "<li>".$serv."</li>";
+                                    }else if($serv == "Sound System"){
+                                        $total_price = $total_price+$sound;
+                                        echo "<li>".$serv."</li>";
+                                    }       
+                                }
+                            }
+                            ?>
                         </td>
-                        <td>$<?= $total_price?></td>
+                        <td>$
+                            <?php
+                                echo ($harga*$duration)+$total_price
+                            ?>
+                        </td>
                     </tr>
                 </tbody>
             </table>
         </div>
     </div>
-    <footer class="text-center text-lg-start">
+    <footer class="text-center text-lg-start fixed-bottom">
         <div class="text-center p-3">
         Created by : Rafie Kemal Makarim_1202190343
         </div>

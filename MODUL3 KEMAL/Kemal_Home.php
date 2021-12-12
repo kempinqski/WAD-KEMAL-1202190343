@@ -1,7 +1,7 @@
 <?php
     include('config.php');
         $query = "SELECT * FROM buku_table";
-        $select = mysqli_query($connect, $query);
+        $select = mysqli_query($conn, $query);
 ?>
 
 <!DOCTYPE html>

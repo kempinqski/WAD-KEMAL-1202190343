@@ -57,7 +57,7 @@
                 <input type="hidden" name="buildingtype" value="Garuda Hall">
                 </select>';
             $image_selected = $img_src[1];
-        }else ($gedung3){
+        } else if ($gedung3){
             $method_selected = '
                 <select class="custom-select" name="buildingtype" disabled>
                 <option value="Gedung Serba Guna">Gedung Serba Guna</option>
@@ -65,7 +65,7 @@
                 </select>';
             $image_selected = $img_src[2];
 
-        }else {
+        } else  {
             $method_selected = '
                 <select class="custom-select" name="buildingtype">
                 <option value="Nusantara Hall">Nusantara Hall</option>
@@ -114,16 +114,16 @@
                     <div class="form-group">
                         Add Service(s)
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="service" value="Catering"
-                                id="service_check1">
+                            <input class="form-check-input" type="checkbox" name="service[]" value="Catering"
+                                >
                             Catering / $700
                             <br/>
-                            <input class="form-check-input" type="checkbox" name="service" value="Decoration"
-                                id="service_check2">
+                            <input class="form-check-input" type="checkbox" name="service[]" value="Decoration"
+                                >
                             Decoration / $450
                             <br/>
-                            <input class="form-check-input" type="checkbox" name="service" value="Sound System"
-                                id="service_check3">
+                            <input class="form-check-input" type="checkbox" name="service[]" value="Sound System"
+                                >
                             Sound System / $250
                             <br/>
                         </div>

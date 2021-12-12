@@ -3,7 +3,7 @@
     include 'config.php';
         $id_buku = $_GET['id'];
 
-        $query = "SELECT * FROM buku_table WHERE id_buku = '$id_buku'";
+        $query = "SELECT * FROM buku_table WHERE id_buku = $id_buku";
         $select = mysqli_query($conn, $query);
         $show = mysqli_fetch_assoc($select);
         $tag  = explode(', ', $show['tag']);
@@ -11,6 +11,7 @@
 
 
 ?>
+
 
 <!DOCTYPE html>
 <html>
@@ -57,9 +58,12 @@
             <p><b>Tag :</b><br>
             <?= $show['tag']; ?></p>
 		</div>
-
-        <div style="margin-left: 350px;">
-            <a name="sunting" id="sunting" class="btn btn-primary" data-target="#myModal" data-toggle="modal"  role="button">Sunting</a> 
+        <div style="margin-left:350px;"> 
+            <a name="sunting" id="sunting" class="btn btn-primary" data-target="#myModal" data-toggle="modal"  role="button">Sunting</a>
+            <a name="delete" id="delete" class="btn btn-danger" href="delete.php?id=<?= $show['id_buku'] ?>" role="button">Hapus</a>
+        </div>
+        
+    </div>`
             <div id="myModal" class="modal fade" role="dialog">
 		        <div class="modal-dialog">
 			        <!-- konten modal-->
@@ -74,28 +78,28 @@
 				        <!-- body modal -->
 				        <div class="modal-body">
                             <div class="container mt-3">
-                                <form action="update.php" method="POST">
+                                <form action="update.php" method="POST" enctype="multipart/form-data">
                                     <div class="form-group" >
-                                       <input type="text" class="form-control" id="id_buku" aria-describedby="id_buku" name="id_buku" value="<?= $show['id_buku'] ?>" hidden> 
+                                       <input type="hidden" name="id" value="<?= $show['id_buku'] ?>"> 
                                     </div>
                                     <div class="form-group">
-                                        <label><b>Judul Buku</b></label>
-                                        <input type="text" class="form-control" id="judulbuku" name="judulbuku" value="<?= $show['judul_buku']; ?>">
+                                        <label for="judulbuku" class="form-label"><b>Judul Buku</b></label>
+                                        <input type="text" class="form-control" aria-describedby="judulbuku" id="judulbuku" name="judulbuku" value="<?= $show['judul_buku']; ?>">
                                     </div>
                                     <div class="form-group">
-				                        <label><b>Penulis</b></label>
-				                        <input type="text" class="form-control"  readonly="true" id="penulis" name="penulis" value="<?= $show['penulis_buku']; ?>">
+				                        <label for="penulis" class="form-label"><b>Penulis</b></label>
+				                        <input type="text" class="form-control"  readonly="true" aria-describedby="penulis" id="penulis" name="penulis" value="<?= $show['penulis_buku']; ?>">
 			                        </div>
                                     <div class="form-group">
-				                        <label><b>Tahun Terbit</b></label>
-				                        <input type="text" class="form-control" id="tahunterbit" name="tahunterbit" value="<?= $show['tahun_terbit']; ?>">
+				                        <label for="tahunterbit" class="form-label"><b>Tahun Terbit</b></label>
+				                        <input type="text" class="form-control" id="tahunterbit" aria-describedby="tahunterbit" name="tahunterbit" value="<?= $show['tahun_terbit']; ?>">
 			                        </div>
                                     <div class="form-group">
-				                        <label><b>Deskripsi</b></label>
+				                        <label for="deskripsi" class="form-label"><b>Deskripsi</b></label>
 				                        <textarea class="form-control" id="deskripsi" name="deskripsi"><?= $show['deskripsi']; ?></textarea>
                                     </div>
                                     <div class="form-check form-check-inline">
-                                        <label><b>Bahasa</b></label>
+                                        <label for="bahasa" class="form-label"><b>Bahasa</b></label>
                                         <div>
                                             <input class="form-check-input" style="margin-left:10px;" type="radio" name="bahasa" id="inlineRadio1" value="Indonesia" <?php if($show['bahasa']=='Indonesia') echo 'checked'?>>
                                             <label class="form-check-label" for="inlineRadio1">Indonesia</label>
@@ -107,7 +111,7 @@
                                     </div>
                                     <br>
                                     <div class="form-check form-check-inline">
-                                        <label><b>Tag</b></label>
+                                        <label for="tag" class="form-label"><b>Tag</b></label>
                                         <div>
                                             <input class="form-check-input" style="margin-left:15px;" type="checkbox" name="tag[]" id="inlineCheckbox1" value="Pemograman" <?php if (in_array("Pemograman", $tag)) echo "checked";?>>
                                             <label class="form-check-label" for="inlineCheckbox1">Pemograman</label>
@@ -137,24 +141,19 @@
                                             <label class="form-check-label" for="inlineCheckbox7">Lainnya</label>
                                         </div>       
                                     </div>
+                                    <!-- footer modal -->
+				                    <div class="modal-footer">
+					                    <button type="button" class="btn btn-default bg-light" data-dismiss="modal">Tutup</button>
+                                        <a type="submit" value="simpan" name="simpan" id="simpan" class="btn btn-primary" href="update.php?id=<?= $show['id_buku'] ?>" role="button">Simpan Perubahan</a>
+				                    </div>
                                 </form>
-
                             </div>
-				        </div>
-				        <!-- footer modal -->
-				        <div class="modal-footer">
-					        <button type="button" class="btn btn-default bg-light" data-dismiss="modal">Tutup</button>
-                            <a type="submit" value="simpan" name="simpan" id="simpan" class="btn btn-primary" href="update.php?id=<?= $show['id_buku'] ?>" role="button">Simpan Perubahan</a>
-				        </div>
+				        </div>      
 			        </div>
 		        </div>
 	        </div>
-            
-            <a name="delete" id="delete" class="btn btn-danger" href="delete.php?id=<?= $show['id_buku'] ?>" role="button">Hapus</a>
         </div>  
-	</div>
-
-
+	
     
     <footer class="text-center bg-light">
         <div class="container">
